@@ -17,6 +17,19 @@ app.post('/', (req, res) => {
             noteText,
             note_id: uuid(),
         };
+        
+        readAndAppend(newNote, './db/notes.json');
+
+        const response = {
+            status: 'succeeded',
+            body: newNote,
+        };
+
+        res.json(response);
+    } else {
+        res.json('Error taking note');
     }
 });
+
+module.exports = notes;
     
