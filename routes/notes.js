@@ -6,10 +6,17 @@ const {} = require('../helpers/uuid');
 // GET route to retrieve notes
 app.get('/public/notes.html', (req, res) => {
     console.info(`${req.method} request recieved for notes`);
-    readFromFile('/public/notes.html').then((data) => res.json(JSON.parse(data)));
-  });
-  app.post('/api/notes', (req, res) => {
+    readFromFile('/db/tips.json').then((data) => res.json(JSON.parse(data)));
+});
+
+app.post('/', (req, res) => {
     console.info(`${req.method} has added a note`);
-    const 
-  })
+    if (req.body) {
+        const newNote = {
+            noteTitle,
+            noteText,
+            note_id: uuid(),
+        };
+    }
+});
     
