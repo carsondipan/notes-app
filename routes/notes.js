@@ -6,29 +6,27 @@ const {} = require('../helpers/uuid');
 
 
 // GET route to retrieve notes
-app.get('/notes.json', (req, res) => {
+app.get('/', (req, res) => {
     console.info(`${req.method} request recieved for notes`);
-    readFromFile('/db/notes.json').then((data) => res.json(JSON.parse(data)));
+    readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 });
 
 app.post('/', (req, res) => {
-    console.info(`${req.method} has added a note`);
-    const { noteTitle, noteText } = req.body;
-    if (noteTitle && noteText) {
+    console.log(req.body);
+    const { title, text } = req.body;
+    if (req.body) {
         const newNote = {
-            noteTitle,
-            noteText,
+            title,
+            text,
             note_id: uuid(),
         };
         
-        readAndAppend(newNote, '/db/notes.json');
-
+        readAndAppend(newNote, './db/notes.json');
         const response = {
-            status: 'succeeded',
+            status: 'success',
             body: newNote,
         };
 
-        res.json(response);
     } else {
         res.json('Error taking note');
     }
