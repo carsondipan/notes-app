@@ -1,23 +1,24 @@
-const notes = require('express').Router();
-const app = require('express')();
+const notes = require('../db/notes.json');
+const app = require('express').Router();
+const { router } = require('.');
 const {readFromFile, readAndAppend, writeToFile} = require('../helpers/fsUtils');
 const {} = require('../helpers/uuid');
 
 
 
 // GET route to retrieve notes
-app.get('/', (req, res) => {
+app.get('/api/notes', (req, res) => {
     console.info(`${req.method} request recieved for notes`);
     readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 });
 
-app.post('/', (req, res) => {
+app.post('/api/notes', (req, res) => {
     console.log(req.body);
-    const { title, text } = req.body;
+    const { noteTitle, noteText } = req.body;
     if (req.body) {
         const newNote = {
-            title,
-            text,
+            noteTitle,
+            noteText,
             note_id: uuid(),
         };
         
@@ -32,5 +33,5 @@ app.post('/', (req, res) => {
     }
 });
 
-module.exports = notes;
+module.exports = router;
     
